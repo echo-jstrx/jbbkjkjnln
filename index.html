@@ -47,7 +47,18 @@ body {
 }
 
 </style>
-<script>
+
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="searchBar" placeholder="Search categories...">
+        <ul id="categoryList">
+            <!-- Categories will be dynamically added here -->
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+    <script>
 const categories = [
     'Betta Fish - Fin Types',
     'Betta Fish - Body Types',
@@ -83,14 +94,4 @@ searchBar.addEventListener('input', displayCategories);
 displayCategories();
 
 </script>
-</head>
-<body>
-    <div class="container">
-        <input type="text" id="searchBar" placeholder="Search categories...">
-        <ul id="categoryList">
-            <!-- Categories will be dynamically added here -->
-        </ul>
-    </div>
-    <script src="script.js"></script>
-</body>
 </html>

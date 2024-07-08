@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Selector</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 300px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#searchBar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#categoryList {
+    list-style: none;
+    padding: 0;
+}
+
+#categoryList li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+#categoryList li:hover {
+    background-color: #f0f0f0;
+}
+
+</style>
+<script>
+const categories = [
+    'Betta Fish - Fin Types',
+    'Betta Fish - Body Types',
+    'Betta Fish - Coloration',
+    'Betta Fish - Wild Types',
+    'Betta Fish - Alien Types',
+    'Betta Fish - Macrostoma'
+];
+
+const searchBar = document.getElementById('searchBar');
+const categoryList = document.getElementById('categoryList');
+
+// Function to display categories based on search query
+function displayCategories() {
+    const query = searchBar.value.toLowerCase();
+    categoryList.innerHTML = '';
+
+    const filteredCategories = categories.filter(category => 
+        category.toLowerCase().includes(query)
+    );
+
+    filteredCategories.forEach(category => {
+        const li = document.createElement('li');
+        li.textContent = category;
+        categoryList.appendChild(li);
+    });
+}
+
+// Event listener for the search bar
+searchBar.addEventListener('input', displayCategories);
+
+// Initial display of all categories
+displayCategories();
+
+</script>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="searchBar" placeholder="Search categories...">
+        <ul id="categoryList">
+            <!-- Categories will be dynamically added here -->
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,125 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category Selector</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
+    <title>Betta Fish Categorization</title>
+    <script>
+        function updateSecondary() {
+            const primary = document.getElementById("fin-type").value;
+            const secondary = document.getElementById("secondary-fin-type");
 
-.container {
-    width: 300px;
-    position: relative;
-}
+            const secondaryOptions = {
+                "Halfmoon": ["Halfmoon Plakat (HMPK)", "Halfmoon Double Tail (HM DT)", "Rosetail Halfmoon (RT HM)"],
+                "Double Tail": ["Double Tail Plakat (DTPK)", "Halfmoon Double Tail (HM DT)", "Feather Tail Double Tail"],
+                "Crowntail": ["Crowntail Plakat (CTPK)", "Delta Crowntail"],
+                "Veil Tail (VT)": [],
+                "Rosetail": [],
+                "Feather Tail": [],
+                "Spade Tail": [],
+                "Delta/Super Delta (D/SMD)": []
+            };
 
-#searchBar {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#categoryList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    max-height: 200px;
-    overflow-y: auto;
-    position: absolute;
-    width: 100%;
-    z-index: 1;
-    display: none; /* Initially hidden */
-}
-
-#categoryList li {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-}
-
-#categoryList li:hover {
-    background-color: #f0f0f0;
-}
-
-</style>
-
+            secondary.innerHTML = "";
+            if (secondaryOptions[primary]) {
+                secondaryOptions[primary].forEach(option => {
+                    const opt = document.createElement("option");
+                    opt.value = option;
+                    opt.innerHTML = option;
+                    secondary.appendChild(opt);
+                });
+            }
+        }
+    </script>
 </head>
 <body>
-    <div class="container">
-        <input type="text" id="searchBar" placeholder="Search categories...">
-        <ul id="categoryList">
-            <!-- Categories will be dynamically added here -->
-        </ul>
-    </div>
+    <h2>Betta Fish Categorization</h2>
+    <form>
+        <label for="body-type">Body Type:</label>
+        <select id="body-type">
+            <option value="Plakat">Plakat</option>
+            <option value="Giant">Giant</option>
+            <option value="Wild">Wild</option>
+            <option value="Standard">Standard</option>
+        </select>
+        <br><br>
+        <label for="fin-type">Fin Type:</label>
+        <select id="fin-type" onchange="updateSecondary()">
+            <option value="Veil Tail (VT)">Veil Tail (VT)</option>
+            <option value="Halfmoon">Halfmoon</option>
+            <option value="Delta/Super Delta (D/SMD)">Delta/Super Delta (D/SMD)</option>
+            <option value="Crowntail">Crowntail</option>
+            <option value="Double Tail">Double Tail</option>
+            <option value="Rosetail">Rosetail</option>
+            <option value="Feather Tail">Feather Tail</option>
+            <option value="Spade Tail">Spade Tail</option>
+        </select>
+        <br><br>
+        <label for="secondary-fin-type">Secondary Fin Type:</label>
+        <select id="secondary-fin-type">
+            <!-- Options will be populated based on primary fin type -->
+        </select>
+        <br><br>
+        <label for="coloration">Coloration:</label>
+        <select id="coloration">
+            <option value="Solid">Solid</option>
+            <option value="Bi-color">Bi-color</option>
+            <option value="Marble">Marble</option>
+            <option value="Butterfly">Butterfly</option>
+            <option value="Dragon">Dragon</option>
+            <option value="Koi">Koi</option>
+            <option value="Mustard Gas">Mustard Gas</option>
+            <option value="Cambodian">Cambodian</option>
+            <option value="Alien">Alien</option>
+            <option value="Nemo">Nemo</option>
+        </select>
+    </form>
 </body>
-    <script>
-const categories = [
-        // Fin Types
-        'Veiltail', 'Plakat', 'Halfmoon', 'Crowntail', 'Doubletail', 'Deltatail', 'HMPK', 'Rosetail',
-        'Feathertail', 'Comb Tail', 'Spade Tail', 'Round Tail', 'Super Delta',
-    
-        // Body Types
-         'Giant', 'Dragon', 'Dumbo', 'Elephant Ear', 'Shortfin', 'Longfin',
-    
-        // Coloration
-        'Solid', 'Bicolor', 'Tricolor', 'Multicolor', 'FCCP', 'Star', 'Marble', 'Butterfly', 'Mustard Gas', 'Koi',
-        'Galaxy', 'Alien', 'Wild', 'Macrostoma', 'Candy', 'Copper', 'Nemo', 'Tiger', 'Pineapple', 'Pastel',
-        'Metallic', 'Cellophane', 'Black Orchid', 'Blue Rim', 'Yellow', 'Red', 'Orange', 'Green',
-        'Blue', 'White', 'Black', 'Fancy', 'Super Black', 'Super White', 'Super Red',
-        'Super Blue', 'Super Yellow', 'Super Green', 'Lavender', 'Royal Blue', 'Steel Blue', 
-        'Turquoise', 'Copper Gold', 'Emerald', 'Gold', 'Silver', 'Platinum',
-        'Dragon', 'Hellboy', 'Samurai', 'King',
-        'Copper Dragon', 'Golden Dragon', 'Samurai',
-        'Green Dragon'
-    ];
-
-const searchBar = document.getElementById('searchBar');
-const categoryList = document.getElementById('categoryList');
-
-// Function to display categories based on search query
-function displayCategories() {
-    const query = searchBar.value.toLowerCase();
-    categoryList.innerHTML = '';
-
-    if (query === '') {
-        categoryList.style.display = 'none';
-        return;
-    }
-
-    const filteredCategories = categories.filter(category => 
-        category.toLowerCase().includes(query)
-    ).slice(0, 10); // Limit to 10 results
-
-    filteredCategories.forEach(category => {
-        const li = document.createElement('li');
-        li.textContent = category;
-        categoryList.appendChild(li);
-    });
-
-    categoryList.style.display = 'block';
-}
-
-// Event listener for the search bar
-searchBar.addEventListener('input', displayCategories);
-
-// Hide category list when clicking outside of the container
-document.addEventListener('click', function(event) {
-    if (!event.target.closest('.container')) {
-        categoryList.style.display = 'none';
-    }
-});
-
-</script>
 </html>
